@@ -2,6 +2,7 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { useEffect, useState } from 'react';
 import { Ionicons } from '@expo/vector-icons';
 import { Linking } from 'react-native';
+import {LinearGradient} from "expo-linear-gradient";
 
 export default function HomeScreen() {
 
@@ -44,7 +45,12 @@ export default function HomeScreen() {
 
   return (
 
-    <View style={styles.container}>
+  <LinearGradient
+      colors={['#6a0dad', '#000000']} // roxo → preto
+      start={{ x: 0, y: 0 }}
+      end={{ x: 0, y: 1 }}
+      style={styles.container}
+      >
 
       <Image
         source={require('../../assets/images/GabrielPerfil.png')}
@@ -90,7 +96,6 @@ const styles = StyleSheet.create({
   container: {
 
     flex: 1,
-    backgroundColor: '#0f172a',
     alignItems: 'center',
     justifyContent: 'center'
 
