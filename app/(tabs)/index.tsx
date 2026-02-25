@@ -103,10 +103,10 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     marginBottom: 20,
     borderWidth: 3,
-    borderColor: '#730ac9',
+    borderColor: '#200238',
     
     position:"absolute",
-    right:20,
+    right:80,
     top:60
 
   },
