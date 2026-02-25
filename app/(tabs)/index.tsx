@@ -103,7 +103,11 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     marginBottom: 20,
     borderWidth: 3,
-    borderColor: '#38bdf8'
+    borderColor: '#38bdf8',
+    
+    position:"absolute",
+    right:20,
+    top:60
 
   },
 
