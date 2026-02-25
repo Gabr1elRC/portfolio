@@ -2,7 +2,7 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { useEffect, useState } from 'react';
 import { Ionicons } from '@expo/vector-icons';
 import { Linking } from 'react-native';
-import {LinearGradient} from "expo-linear-gradient";
+import {LinearGradient} from "Expo-Linear-Gradient";
 
 export default function HomeScreen() {
 
