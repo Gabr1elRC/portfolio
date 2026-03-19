@@ -7,9 +7,9 @@ import {LinearGradient} from "Expo-Linear-Gradient";
 export default function HomeScreen() {
 
   const texts = [
-    "Desenvolvedor Mobile",
-    "React Native Developer",
-    "Front-end Developer"
+    "Gabriel Ribeiro Correa",
+    "Developer",
+    "Portifólio"
   ];
 
   const [displayText, setDisplayText] = useState("");
