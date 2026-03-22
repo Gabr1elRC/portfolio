@@ -1,15 +1,91 @@
 import { LinearGradient } from 'expo-linear-gradient';
+import { useEffect, useRef } from 'react';
 import {
-  Image,
+  Animated,
   Linking,
   ScrollView,
-  StyleSheet,
   Text,
   TouchableOpacity,
   View
 } from 'react-native';
+import { styles } from './Styles';
 
 export default function Home() {
+
+  // 🔥 animações separadas
+  const photoAnim = useRef(new Animated.Value(0)).current;
+  const textAnim = useRef(new Animated.Value(0)).current;
+  const buttonsAnim = useRef(new Animated.Value(0)).current;
+
+  const project1 = useRef(new Animated.Value(0)).current;
+  const project2 = useRef(new Animated.Value(0)).current;
+  const project3 = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    Animated.sequence([
+      Animated.timing(photoAnim, {
+        toValue: 1,
+        duration: 600,
+        useNativeDriver: true,
+      }),
+      Animated.timing(textAnim, {
+        toValue: 1,
+        duration: 600,
+        useNativeDriver: true,
+      }),
+      Animated.timing(buttonsAnim, {
+        toValue: 1,
+        duration: 600,
+        useNativeDriver: true,
+      }),
+      Animated.timing(project1, {
+        toValue: 1,
+        duration: 500,
+        useNativeDriver: true,
+      }),
+      Animated.timing(project2, {
+        toValue: 1,
+        duration: 500,
+        useNativeDriver: true,
+      }),
+      Animated.timing(project3, {
+        toValue: 1,
+        duration: 500,
+        useNativeDriver: true,
+      }),
+    ]).start();
+  }, []);
+
+  // 🔘 botão animado
+  const scale = useRef(new Animated.Value(1)).current;
+
+  const pressIn = () => {
+    Animated.spring(scale, {
+      toValue: 0.95,
+      useNativeDriver: true,
+    }).start();
+  };
+
+  const pressOut = () => {
+    Animated.spring(scale, {
+      toValue: 1,
+      useNativeDriver: true,
+    }).start();
+  };
+
+  // 🔥 função padrão (fade + subir)
+  const getAnimationStyle = (anim) => ({
+    opacity: anim,
+    transform: [
+      {
+        translateY: anim.interpolate({
+          inputRange: [0, 1],
+          outputRange: [40, 0],
+        }),
+      },
+    ],
+  });
+
   return (
     <LinearGradient
       colors={['#7A0A84', '#FF4500']}
@@ -17,145 +93,80 @@ export default function Home() {
     >
       <ScrollView>
 
-        {/* TOPO */}
         <View style={styles.header}>
-          
-          <Image
-            source={require('../assets/GabrielAnimado.jpeg')}
-            style={styles.profile}
-          />
 
-          <Text style={styles.text}>
-            Sou desenvolvedor em início de carreira, atualmente atuando como
-            estagiário na área de tecnologia. Tenho experiência com React Native,
-            JavaScript e desenvolvimento de APIs, sempre buscando evoluir minhas
-            habilidades e criar soluções eficientes e bem estruturadas.
+          <Text style={styles.nameProfile}>
+            Gabriel Ribeiro Correa
           </Text>
 
-          <View style={styles.socialButtons}>
-  
-            <TouchableOpacity
-              style={styles.socialButton}
-              onPress={() => Linking.openURL('https://github.com/Gabr1elRC')}
-            >
-              <Text style={styles.buttonText}>GitHub</Text>
-            </TouchableOpacity>
+          {/* FOTO */}
+          <Animated.Image
+            source={require('../assets/GabrielAnimado.jpeg')}
+            style={[styles.profile, getAnimationStyle(photoAnim)]}
+          />
 
-            <TouchableOpacity
-              style={styles.socialButton}
-              onPress={() => Linking.openURL('https://www.linkedin.com/in/gabriel-ribeiro-correa-733612182/')}
-            >
-              <Text style={styles.buttonText}>LinkedIn</Text>
-            </TouchableOpacity>
+          {/* TEXTO */}
+          <Animated.Text style={[styles.text, getAnimationStyle(textAnim)]}>
+            Estudante do 5° Semestre de Desenvolvimento de Software na Fatec Votorantim,
+            atualmente atuando como estagiário de TI/Marketing. Tenho experiência com
+            React Native, Angular, JavaScript e desenvolvimento de APIs, sempre buscando
+            evoluir minhas habilidades e criar soluções eficientes e bem estruturadas.
+          </Animated.Text>
 
-          </View>
+          {/* BOTÕES */}
+          <Animated.View style={[styles.socialButtons, getAnimationStyle(buttonsAnim)]}>
+
+            <Animated.View style={{ transform: [{ scale }] }}>
+              <TouchableOpacity
+                style={styles.socialButton}
+                onPressIn={pressIn}
+                onPressOut={pressOut}
+                onPress={() => Linking.openURL('https://github.com/Gabr1elRC')}
+              >
+                <Text style={styles.buttonText}>GitHub</Text>
+              </TouchableOpacity>
+            </Animated.View>
+
+            <Animated.View style={{ transform: [{ scale }] }}>
+              <TouchableOpacity
+                style={styles.socialButton}
+                onPressIn={pressIn}
+                onPressOut={pressOut}
+                onPress={() => Linking.openURL('https://www.linkedin.com/in/gabriel-ribeiro-correa-733612182/')}
+              >
+                <Text style={styles.buttonText}>LinkedIn</Text>
+              </TouchableOpacity>
+            </Animated.View>
+
+          </Animated.View>
 
         </View>
 
-        
-
-        {/* LINHA */}
         <View style={styles.divider} />
 
-        {/* PROJETOS */}
-        <View style={styles.project}>
+        {/* PROJETO 1 */}
+        <Animated.View style={[styles.project, getAnimationStyle(project1)]}>
           <View style={styles.projectBox} />
           <Text style={styles.projectText}>Faculride</Text>
-        </View>
+        </Animated.View>
 
         <View style={styles.divider} />
 
-        <View style={styles.project}>
+        {/* PROJETO 2 */}
+        <Animated.View style={[styles.project, getAnimationStyle(project2)]}>
           <View style={styles.projectBox} />
           <Text style={styles.projectText}>Em Desenvolvimento</Text>
-        </View>
+        </Animated.View>
 
         <View style={styles.divider} />
 
-        <View style={styles.project}>
+        {/* PROJETO 3 */}
+        <Animated.View style={[styles.project, getAnimationStyle(project3)]}>
           <View style={styles.projectBox} />
           <Text style={styles.projectText}>Em desenvolvimento</Text>
-        </View>
+        </Animated.View>
 
       </ScrollView>
     </LinearGradient>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingTop: 50,
-  },
-
-  header: {
-    flexDirection: 'column',
-    alignItems: 'center',
-    padding: 20,
-  },
-
-  profile: {
-  width: 220,
-  height: 220,
-
-  borderTopLeftRadius: 30,
-  borderTopRightRadius: 30,
-  borderBottomLeftRadius: 30,
-  borderBottomRightRadius: 60, // diferente aqui
-
-  borderWidth: 3,
-  borderColor: '#fff',
-},
-
-  text: {
-    color: '#fff',
-    fontSize: 15,
-    textAlign: 'center',
-    paddingHorizontal: 20,
-    marginTop: 10,
-  },
-
-  divider: {
-    height: 1,
-    backgroundColor: '#fff',
-    marginVertical: 15,
-    marginHorizontal: 20,
-  },
-
-  project: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: 20,
-  },
-
-  projectBox: {
-    width: 70,
-    height: 70,
-    backgroundColor: '#d3a3a3',
-    marginRight: 15,
-    borderWidth: 2,
-  },
-
-  projectText: {
-    color: '#fff',
-    fontSize: 16,
-  },
-
-  socialButtons: {
-  flexDirection: 'row',
-  marginTop: 20,
-  gap: 10
-},
-
-socialButton: {
-  backgroundColor: '#fff',
-  paddingVertical: 8,
-  paddingHorizontal: 15,
-  borderRadius: 20
-},
-
-buttonText: {
-  color: '#8B0000',
-  fontWeight: 'bold'
-},
-});
